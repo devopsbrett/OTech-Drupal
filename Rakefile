@@ -20,13 +20,23 @@ task :createdb do
 	end
 end
 
-task :seeddata do
-	#seed data 
+task :writeconf do
+	puts @conffiles
 end
 
 desc "Do tasks specific to Drupal installations"
-task :drupal => [:createdb] do 
-	puts ENV["RDSHOST"]
-	puts ENV["DBNAME"]
-	puts ENV["DBPASS"]
+task :drupal => [:createdb] do
+	@conffiles = [
+		{
+			from: 'somefile',
+			to: 'someotherfile',
+			replace: [
+				{ string: '$DBHOST$', with: ENV['RDSHOST'] },
+				{ string: '$DBNAME$', with: ENV['DBNAME'] },
+				{ string: '$DBUSER$', with: ENV['DBUSER'] },
+				{ string: '$DBPASS$', with: ENV['DBPASS'] }
+			]
+		}
+	] 
+	Rake::Task[:writeconf].invoke
 end
