@@ -4,12 +4,14 @@ require 'mysql2'
 
 desc "Create the database if it doesn't exist"
 task :createdb do
+	puts ENV
 	begin
 		client = Mysql2::Client.new(
 			host: ENV["RDSHOST"],
 			username: ENV["DBUSER"],
 			password: ENV["DBPASS"],
 			database: ENV['DBNAME'])
+
 		announce "Database already exists. Skipping!"
 	rescue
 		client = Mysql2::Client.new(
@@ -17,7 +19,7 @@ task :createdb do
 			username: ENV["RDSROOTUSER"],
 			password: ENV["RDSROOTPASS"])
 		client.query("CREATE DATABASE IF NOT EXISTS #{ENV['DBNAME']}")
-		client.query("GREANT ALL ON `#{ENV['DBNAME']}.*` TO '#{ENV['DBUSER']}'@'%' IDENTIFIED BY '#{ENV['DBPASS']}'")
+		client.query("GRANT ALL ON `#{ENV['DBNAME']}.*` TO '#{ENV['DBUSER']}'@'%' IDENTIFIED BY '#{ENV['DBPASS']}'")
 	end	
 end
 
