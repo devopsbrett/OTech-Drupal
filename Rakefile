@@ -14,6 +14,7 @@ task :createdb do
 
 		announce "Database already exists. Skipping!"
 	rescue
+		announce "Creating Database!"
 		client = Mysql2::Client.new(
 			host: ENV["RDSHOST"],
 			username: ENV["RDSROOTUSER"],
