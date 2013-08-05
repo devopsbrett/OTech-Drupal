@@ -12,9 +12,9 @@ task :createdb do
 			password: ENV["DBPASS"],
 			database: ENV['DBNAME'])
 
-		announce "Database already exists. Skipping!"
+		puts "Database already exists. Skipping!"
 	rescue
-		announce "Creating Database!"
+		puts "Creating Database!"
 		client = Mysql2::Client.new(
 			host: ENV["RDSHOST"],
 			username: ENV["RDSROOTUSER"],
