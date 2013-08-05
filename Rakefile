@@ -38,8 +38,8 @@ desc "Do tasks specific to Drupal installations"
 task :drupal => [:createdb] do
 	@conffiles = [
 		{
-			from: 'sites/default/default.settings.php',
-			to: 'sites/default/settings.php',
+			from: '../sites/default/default.settings.php',
+			to: '../sites/default/settings.php',
 			replace: [
 				{ string: '$DBHOST$', with: ENV['RDSHOST'] },
 				{ string: '$DBNAME$', with: ENV['DBNAME'] },
