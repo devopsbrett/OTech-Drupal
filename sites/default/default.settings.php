@@ -211,7 +211,14 @@
  * @endcode
  */
 $databases = array();
-
+$databases['default'] = array('default' => array(
+	'driver'    => 'mysql',
+	'database'  => '$DBNAME$',
+	'username'  => '$DBUSER$',
+	'password'  => '$DBPASS$',
+	'host'      => '$DBHOST$',
+ 	'collation' => 'utf8_general_ci',
+));
 /**
  * Access control for update.php script.
  *
