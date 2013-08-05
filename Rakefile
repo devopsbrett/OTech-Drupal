@@ -4,9 +4,7 @@ require 'mysql2'
 
 desc "Create the database if it doesn't exist"
 task :createdb do
-	if ENV["RDSHOST"].nil? or ENV["RDSROOTUSER"].nil? or ENV["RDSROOTPASS"].nil? or ENV['DBNAME'].nil? or ENV['DBUSER'].nil? or ENV['DBPASS'].nil?
-		fail "MISSING DATABASE ENVIRONMENT VARIABLES. MODIFY JENKINS CONFIG"
-	else
+	if ENV["RDSHOST"] and ENV["RDSROOTUSER"] and ENV["RDSROOTPASS"] and ENV['DBNAME'] and ENV['DBUSER'] and ENV['DBPASS']
 		begin
 			client = Mysql2::Client.new(
 				host: ENV["RDSHOST"],
@@ -21,7 +19,9 @@ task :createdb do
 				password: ENV["RDSROOTPASS"])
 			client.query("CREATE DATABASE IF NOT EXISTS #{ENV['DBNAME']}")
 			client.query("GREANT ALL ON `#{ENV['DBNAME']}.*` TO '#{ENV['DBUSER']}'@'%' IDENTIFIED BY '#{ENV['DBPASS']}'")
-		end
+		end		
+	else
+		fail "MISSING DATABASE ENVIRONMENT VARIABLES. MODIFY JENKINS CONFIG"
 	end
 end
 
