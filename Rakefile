@@ -19,7 +19,7 @@ task :createdb do
 			username: ENV["RDSROOTUSER"],
 			password: ENV["RDSROOTPASS"])
 		client.query("CREATE DATABASE IF NOT EXISTS #{ENV['DBNAME']}")
-		client.query("GRANT ALL ON `#{ENV['DBNAME']}.*` TO '#{ENV['DBUSER']}'@'%' IDENTIFIED BY '#{ENV['DBPASS']}'")
+		client.query("GRANT ALL ON `#{ENV['DBNAME']}`.* TO '#{ENV['DBUSER']}'@'%' IDENTIFIED BY '#{ENV['DBPASS']}'")
 	end	
 end
 
