@@ -27,7 +27,7 @@ task :writeconf do
 	#puts @conffiles
 	@conffiles.each do |conf|
 		f = IO.read(File.expand_path(conf[:from], __FILE__))
-		f[:replace].each do |r|
+		conf[:replace].each do |r|
 			f[r[:string]] = r[:replace]
 		end
 		puts f
