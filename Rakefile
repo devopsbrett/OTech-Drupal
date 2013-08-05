@@ -24,14 +24,20 @@ task :createdb do
 end
 
 task :writeconf do
-	#puts @conffiles
 	@conffiles.each do |conf|
 		f = IO.read(File.expand_path(conf[:from], __FILE__))
 		conf[:replace].each do |r|
 			puts r
 			f[r[:string]] = r[:with]
 		end
-		puts f
+		if conf[:to].nil?
+			tofile = File.expand_path(conf[:from], __FILE__)
+		else
+			tofile = File.expand_path(conf[:to], __FILE__)
+		end
+		t = File.open(tofile, 'w')
+		t.write(f)
+		t.close
 	end
 end
 
