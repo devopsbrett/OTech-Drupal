@@ -4,7 +4,6 @@ require 'mysql2'
 
 desc "Create the database if it doesn't exist"
 task :createdb do
-	puts ENV
 	begin
 		client = Mysql2::Client.new(
 			host: ENV["RDSHOST"],
@@ -25,9 +24,14 @@ task :createdb do
 end
 
 task :writeconf do
-	puts @conffiles
-	#@conffiles.each do |conf|
-	#	puts
+	#puts @conffiles
+	@conffiles.each do |conf|
+		f = IO.read(File.expand_path(conf[:from], __FILE__))
+		f[:replace].each do |r|
+			f[r[:string]] = r[:replace]
+		end
+		puts f
+	end
 end
 
 desc "Do tasks specific to Drupal installations"
