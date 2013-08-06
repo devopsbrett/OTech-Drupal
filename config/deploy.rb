@@ -14,6 +14,8 @@ role :db,  "10.62.95.125", :primary => true
 set :deploy_to, "/var/www/#{application}"
 set :deploy_via, :remote_cache
 
+set :ssh_options, { :forward_agent => true }
+
 after 'deploy:setup', 'drupal:setup'
 after 'deploy:create_symlink', 'drupal:symlink'
 
