@@ -26,6 +26,8 @@ end
 
 namespace :drupal do
 	task :setup do
+		puts "PLEASE WORK"
+		puts "#{repository}"
 		run "#{try_sudo} mkdir -p #{shared_path}/site/files"
 		put_sudo File.read(File.expand_path("../../sites/default/settings.php", __FILE__)), "#{shared_path}/site/settings.php"
 		run "#{try_sudo} chown -R #{user}:www-data #{deploy_to}"
