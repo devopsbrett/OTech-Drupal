@@ -41,8 +41,17 @@ task :writeconf do
 	end
 end
 
-task :setupenv => [:writeconf] do
+task :setupenv do
 	sh %{ cap deploy:setup } if ENV['RUNSETUP']
+end
+
+task :deploy => [:writeconf, :setupenv] do
+	sh %{ cap deploy }
+	Rake::Task[:unlockconf].invoke if ENV['RUNSETUP']
+end
+
+task :unlockconf do
+	sh %{ cap drupal:allow_settings_write }
 end
 
 desc "Do tasks specific to Drupal installations"
@@ -59,5 +68,5 @@ task :drupal => [:createdb] do
 			]
 		}
 	] 
-	Rake::Task[:setupenv].invoke
+	Rake::Task[:deploy].invoke
 end
