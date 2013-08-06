@@ -6,9 +6,9 @@ set :user, 'ubuntu'
 # set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
-role :web, "ec2-23-20-208-37.compute-1.amazonaws.com"                          # Your HTTP server, Apache/etc
-role :app, "ec2-23-20-208-37.compute-1.amazonaws.com"                          # This may be the same as your `Web` server
-role :db,  "ec2-23-20-208-37.compute-1.amazonaws.com", :primary => true 
+role :web, "10.62.95.125"                          # Your HTTP server, Apache/etc
+role :app, "10.62.95.125"                          # This may be the same as your `Web` server
+role :db,  "10.62.95.125", :primary => true 
 
 #set :ssh_options, {:keys => [ File.join(Dir.home, 'keys', 'aws-bmack.pem')]}
 set :deploy_to, "/var/www/#{application}"
