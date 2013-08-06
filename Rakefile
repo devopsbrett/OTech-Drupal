@@ -41,6 +41,10 @@ task :writeconf do
 	end
 end
 
+task :setupenv => [:writeconf] do
+	sh %{ cap deploy:setup } if ENV['RUNSETUP']
+end
+
 desc "Do tasks specific to Drupal installations"
 task :drupal => [:createdb] do
 	@conffiles = [
@@ -55,5 +59,5 @@ task :drupal => [:createdb] do
 			]
 		}
 	] 
-	Rake::Task[:writeconf].invoke
+	Rake::Task[:setupenv].invoke
 end
