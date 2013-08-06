@@ -1,5 +1,5 @@
 set :application, ENV['JOB_NAME']#{}"PHPDrupalTest"
-set :repository,  ENV['GIT_URL ']#{}"git@github.com:devopsbrett/OTech-Drupal.git"
+set :repository,  ENV['GITREPO ']#{}"git@github.com:devopsbrett/OTech-Drupal.git"
 set :scm, :git
 
 set :user, 'ubuntu'
